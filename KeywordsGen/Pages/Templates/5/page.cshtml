@@ -1,0 +1,86 @@
+@page
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+   <style>
+      *, *:before, *:after {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         position: relative;  
+      }
+
+      html, body {
+         height: 100%;
+      }
+
+      body {
+         text-align: center;    
+         background-color: #@Request.Query["bgcol"].ToString();
+         background-image: url("/templates/bg_@Request.Query["bg"].ToString()\.png");
+      }
+
+      body:before {
+         content: '';
+         display: inline-block;
+         vertical-align: middle;
+         font-size: 0;
+         height: 100%;
+      }
+
+      h1 {
+         display: inline-block;
+         color: #@(Request.Query["color"].ToString().Length > 0 ? Request.Query["color"].ToString() : "fff");
+         font-family: "@Request.Query["font"].ToString()", 'Righteous', serif;
+         font-size: @((170 - Request.Query["text"].ToString().Length *  10) * (Request.Query["fsm"].ToString().Length > 0 ? float.Parse(Request.Query["fsm"].ToString()) : 1))px; 
+         text-shadow: .03em .03em 0 #@Request.Query["bgcol"];
+         vertical-align: middle;
+      }
+
+      h1:after {
+         content: attr(data-shadow);
+         position: absolute;
+         top: .07em; left: .07em;
+         z-index: -1;
+         text-shadow: none;
+         background-image:
+         linear-gradient(
+            45deg,
+            transparent 45%,
+            #@(Request.Query["color"].ToString().Length > 0 ? Request.Query["color"].ToString() : "fff") 45%,
+            #@(Request.Query["color"].ToString().Length > 0 ? Request.Query["color"].ToString() : "fff") 55%,
+            transparent 0
+         );
+         background-size: .05em .05em;
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         animation: shad-anim 15s linear infinite;
+         height:250px;
+      }
+
+      @@keyframes shad-anim {
+         0% {background-position: 0 0}
+         0% {background-position: 100% -100%}
+      }
+   </style> 
+</head>
+<body>
+
+<h1 data-shadow='@Request.Query["text"].ToString()'>@Request.Query["text"].ToString()</h1>
+
+</body>
+</html>

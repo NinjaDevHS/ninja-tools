@@ -1,0 +1,76 @@
+@page
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+   <style>
+      .neon {
+         color: #@(Request.Query["color"].ToString().Length > 0 ? Request.Query["color"].ToString() : "fff");
+         text-shadow:
+            0 0 5px #@(Request.Query["color2"].ToString().Length > 0 ? Request.Query["color2"].ToString() : "fff"),
+            0 0 10px #@(Request.Query["color2"].ToString().Length > 0 ? Request.Query["color2"].ToString() : "fff"),
+            0 0 20px #@(Request.Query["color2"].ToString().Length > 0 ? Request.Query["color2"].ToString() : "fff"),
+            0 0 40px #@(Request.Query["border"].ToString().Length > 0 ? Request.Query["border"].ToString() : "0ff"),
+            0 0 80px #@(Request.Query["border"].ToString().Length > 0 ? Request.Query["border"].ToString() : "0ff"),
+            0 0 90px #@(Request.Query["border"].ToString().Length > 0 ? Request.Query["border"].ToString() : "0ff"),
+            0 0 100px #@(Request.Query["border"].ToString().Length > 0 ? Request.Query["border"].ToString() : "0ff"),
+            0 0 150px #@(Request.Query["border"].ToString().Length > 0 ? Request.Query["border"].ToString() : "0ff");
+      }
+
+      :root {
+         font-size: calc(1vw + 1vh + 1.5vmin);
+      }
+
+      html, body {
+         height: 100%;
+         margin: 0;
+      }
+
+      .container {
+         margin: 0 auto;
+      }
+
+      body {
+         -webkit-box-align: center;
+         -ms-flex-align: center;
+         align-items: center;
+         background-color: #@Request.Query["bgcol"].ToString();
+         background-image: url("/templates/bg_@Request.Query["bg"].ToString()\.png");
+         display: -webkit-box;
+         display: -ms-flexbox;
+         display: flex;
+         font-family: "@Request.Query["font"].ToString()", -apple-system, 
+         "Fira Code", 
+         sans-serif;
+         font-size: 1rem;
+      }
+
+      h1 {
+         font-weight: 400;
+         text-align: center;
+         text-transform: uppercases;
+         font-size: @((145 - Request.Query["text"].ToString().Length *  8) * (Request.Query["fsm"].ToString().Length > 0 ? float.Parse(Request.Query["fsm"].ToString()) : 1))px; 
+      }
+   </style>
+</head>
+<body>
+
+<div class="container">
+   <h1 class="neon">@Request.Query["text"].ToString()</h1>
+</div>
+
+</body>
+</html>

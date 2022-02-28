@@ -1,0 +1,102 @@
+@page
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+   <style>
+      body {
+         margin: 0;
+         height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background-color: #@Request.Query["bgcol"].ToString();
+         background-image: url("/templates/bg_@Request.Query["bg"].ToString()\.png");
+      }
+
+      .neon {
+         position: relative;
+         overflow: hidden;
+         filter: brightness(200%);
+      }
+
+      .text {
+         background-color: #@Request.Query["bgcol"].ToString();;
+         color: white;
+         font-size: @((160 - Request.Query["text"].ToString().Length *  10) * (Request.Query["fsm"].ToString().Length > 0 ? float.Parse(Request.Query["fsm"].ToString()) : 1))px; 
+         font-weight: bold;
+         font-family: "@Request.Query["font"].ToString()", sans-serif;
+         text-transform: uppercases;
+         position: relative;
+         user-select: none;
+      }
+
+      .text::before {
+         content: attr(data-text);
+         position: absolute;
+         color: white;
+         filter: blur(0.02em);
+         mix-blend-mode: difference;
+      }
+
+      .gradient {
+         position: absolute;
+         background: linear-gradient(45deg, red, gold, lightgreen, gold, red);
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         mix-blend-mode: multiply;
+      }
+
+      .spotlight {
+         display: none;
+         position: absolute;
+         top: -100%;
+         left: -100%;
+         right: 0;
+         bottom: 0;
+         background: 
+         radial-gradient(
+            circle,
+            white,
+            transparent 25%
+         ) center / 25% 25%,
+         radial-gradient(
+            circle,
+            white,
+            black 25%
+         ) center / 12.5% 12.5%;
+         mix-blend-mode: color-dodge;
+      }
+
+      @@keyframes light {
+         to {
+            transform: translate(50%, 50%);
+         }
+      }
+   </style>
+</head>
+<body>
+
+<div class="neon">
+   <span class="text" data-text="@Request.Query["text"].ToString()">@Request.Query["text"].ToString()</span>
+   <span class="gradient"></span>
+   <span class="spotlight"></span>
+</div>
+
+</body>
+</html>

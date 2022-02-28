@@ -1,0 +1,107 @@
+@page
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+   <style>
+      .text {
+         fill: none;
+         stroke-width: 3;
+         stroke-linejoin: round;
+         stroke-dasharray: 70 330;
+         stroke-dashoffset: 0;
+         -webkit-animation: stroke 6s infinite linear;
+         animation: stroke 6s infinite linear;
+      }
+
+      .text:nth-child(5n+1) {
+         stroke: #F2385A;
+         -webkit-animation-delay: -1.2s;
+         animation-delay: -1.2s;
+      }
+
+      .text:nth-child(5n+2) {
+         stroke: #F5A503;
+         -webkit-animation-delay: -2.4s;
+         animation-delay: -2.4s;
+      }
+
+      .text:nth-child(5n+3) {
+         stroke: #E9F1DF;
+         -webkit-animation-delay: -3.6s;
+         animation-delay: -3.6s;
+      }
+
+      .text:nth-child(5n+4) {
+         stroke: #56D9CD;
+         -webkit-animation-delay: -4.8s;
+         animation-delay: -4.8s;
+      }
+      
+      .text:nth-child(5n+5) {
+         stroke: #3AA1BF;
+         -webkit-animation-delay: -6s;
+         animation-delay: -6s;
+      }
+
+      @@-webkit-keyframes stroke {
+         100% {
+            stroke-dashoffset: -400;
+         }
+      }
+
+      @@keyframes stroke {
+         100% {
+            stroke-dashoffset: -400;
+         }
+      }
+
+      html, body {
+         height: 100%;
+      }
+
+      body {
+         background-color: #@Request.Query["bgcol"].ToString();
+         background-image: url("/templates/bg_@Request.Query["bg"].ToString()\.png");
+         font: 5em/1 Open Sans, Impact;
+         font-family: "@Request.Query["font"].ToString()", 'Open Sans', Impact;
+         font-size: @((165 - Request.Query["text"].ToString().Length *  10) * (Request.Query["fsm"].ToString().Length > 0 ? float.Parse(Request.Query["fsm"].ToString()) : 1))px; 
+         text-transform: uppercases;
+         margin: 0;
+      }
+
+      svg {
+         position: absolute;
+         width: 100%;
+         height: 100%;
+      }
+   </style>
+</head>
+<body>
+
+<svg viewBox="0 0 500 500">
+   <symbol id="s-text">
+      <text text-anchor="middle" x="50%" y="50%" dy=".35em">@Request.Query["text"].ToString()</text>
+   </symbol>
+   <use class="text" xlink:href="#s-text"></use>
+   <use class="text" xlink:href="#s-text"></use>
+   <use class="text" xlink:href="#s-text"></use>
+   <use class="text" xlink:href="#s-text"></use>
+   <use class="text" xlink:href="#s-text"></use>
+</svg>
+
+</body>
+</html>

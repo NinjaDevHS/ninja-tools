@@ -1,0 +1,47 @@
+@page
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+   <style>
+      body{
+         background-color: #@Request.Query["bgcol"].ToString();
+         background-image: url("/templates/bg_@Request.Query["bg"].ToString()\.png");
+         font-family: "@Request.Query["font"].ToString()", 'Montserrat', sans-serif;
+      }
+
+      span{
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         font-size: @((155 - Request.Query["text"].ToString().Length *  10) * (Request.Query["fsm"].ToString().Length > 0 ? float.Parse(Request.Query["fsm"].ToString()) : 1))px; 
+         letter-spacing:0.1em;
+         -webkit-text-fill-color: transparent;
+         -webkit-text-stroke-width: 3px;
+         -webkit-text-stroke-color: #@(Request.Query["border"].ToString().Length > 0 ? Request.Query["border"].ToString() : "fff");
+         text-shadow: 
+         4px 4px #@(Request.Query["color"].ToString().Length > 0 ? Request.Query["color"].ToString() : "ff1f8f"),
+         10px 10px #000000;
+      }
+   </style>
+</head>
+<body>
+
+<span>@Request.Query["text"].ToString()</span>
+
+</body>
+</html>
